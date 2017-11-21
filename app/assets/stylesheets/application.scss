@@ -1,0 +1,16 @@
+@import 'bootstrap';
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+html{
+
+  body{
+    font-size: 14px!important;
+  }
+}
+
+.center-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
