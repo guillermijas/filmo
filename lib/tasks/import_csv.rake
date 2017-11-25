@@ -1,8 +1,13 @@
 namespace :import_csv do
-  task import: :environment do
+  task import_ratings: :environment do
+    CSV.foreach('lib/assets/ratings.csv', headers: true, row_sep: :auto, col_sep: ',') do |row|
+      Rating.create!(row.to_hash)
+    end
+  end
 
-    CSV.foreach('lib/assets/films.csv', headers: true, row_sep: :auto, col_sep: ';') do |row|
-      Film.create!(row.to_hash)
+  task import_tags: :environment do
+    CSV.foreach('lib/assets/tags.csv', headers: true, row_sep: :auto, col_sep: ',') do |row|
+      Tag.create!(row.to_hash)
     end
   end
 end
