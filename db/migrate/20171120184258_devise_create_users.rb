@@ -22,6 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :title
       t.text :genres
       t.integer :imdb_id
+      t.integer :tmdb_id
 
       t.timestamps null: false
     end

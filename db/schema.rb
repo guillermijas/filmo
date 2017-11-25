@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20171120184258) do
     t.string "title"
     t.text "genres"
     t.integer "imdb_id"
+    t.integer "tmdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
