@@ -5,6 +5,14 @@ $gray: #dddddd;
 }
 
 .login-body {
+  background-size: cover;
+  background: image_url('background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: white;
+  overflow-x: hidden;
   padding: 40px;
   position: fixed;
   width: 100%;
@@ -18,10 +26,6 @@ $gray: #dddddd;
     background-color: #2e353d;
     padding: 30px;
     width: 500px;
-
-    p, label, a, span, h1, h2 {
-      color: white;
-    }
 
     .form-actions{
       display: flex;

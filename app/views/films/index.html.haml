@@ -1,6 +1,8 @@
 %h1 Listing films
 
 = link_to 'Recommend film', recommend_film_path, class: 'btn btn-primary', method: :post
+= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-secondary') do
+  Log Out
 %table
   %thead
     %tr
