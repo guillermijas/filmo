@@ -1,0 +1,20 @@
+%h1 Recommended Films
+
+= link_to 'Recommend another film', recommend_film_path, class: 'btn btn-primary', method: :post
+= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-secondary') do
+  Log Out
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - @films.each do |film|
+      %tr
+        %td= film.title
+%br
+
+= link_to 'New Film', new_film_path

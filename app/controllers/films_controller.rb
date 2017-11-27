@@ -50,8 +50,11 @@ class FilmsController < ApplicationController
 
   def recommend_film
     r_script = Rails.root.join('lib', 'assets', 'r_test.R')
+    R.user_id = current_user.id
     R.eval(`cat #{r_script}`)
-    similar_users = R.newdata
+    recommended_films_ids = [1,2,3,4,5,6,7] # R.newdata
+    ap recommended_films_ids
+    @films = Film.where(id: recommended_films_ids)
   end
 
   private

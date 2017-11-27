@@ -15,7 +15,7 @@ for (i in 1:ncol(ratings2)){
 
 ratings2 = ratings2[,-1]
 temp<-cor(ratings2)
-x<-temp[1,]   #user 1
+x<-temp[user_id,]   #viene de ruby
 sort(x, decreasing = TRUE)
 newdata <- head(sort(x, decreasing=TRUE), 11)
 newdata <- newdata[-1]
