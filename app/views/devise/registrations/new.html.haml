@@ -1,0 +1,18 @@
+.login-body
+  .login-container
+    %h1.text-center Sign up
+    %br
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      .row
+        .col-md-12
+          .form-group
+            = f.input :email, label: 'E-mail', required: true
+          .form-group
+            = f.input :password, label: 'Password', required: true
+          .form-group
+            = f.input :password_confirmation, label: 'Confirm password', required: true
+      .actions.text-center
+        = f.button :submit, 'Done!', class: 'btn btn-primary w-100'
+        %br
+        %br
+= link_to 'Back', new_user_session_path, class: 'btn btn-secondary'

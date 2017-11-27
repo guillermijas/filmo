@@ -1,11 +1,21 @@
 @import 'bootstrap';
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import 'films';
+@import 'devise';
 
 html{
 
   body{
     font-size: 14px!important;
+    background-size: cover;
+    background: image_url('background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+    overflow-x: hidden;
   }
 }
 
