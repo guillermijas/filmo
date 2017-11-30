@@ -3,7 +3,8 @@ class FilmsController < ApplicationController
   before_action :set_film, only: [:show, :edit, :update, :destroy]
 
   def index
-    @films = Film.all
+    rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
+    @films = Film.where(id: rated_films)
   end
 
   def show; end
