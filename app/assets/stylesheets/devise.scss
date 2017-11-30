@@ -5,12 +5,10 @@ $gray: #dddddd;
 }
 
 .login-body {
-  background-size: cover;
-  background: image_url('background.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-image: image_url('img7.jpg');
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
   color: white;
   overflow-x: hidden;
   padding: 40px;
@@ -20,9 +18,13 @@ $gray: #dddddd;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: 100%;
+  -moz-transition: all 4s ease-in-out;
+  -webkit-transition: all 4s ease-in-out;
+  -o-transition: all 4s ease-in-out;
+  transition: all 4s ease-in-out;
 
   .login-container {
-    border-top: 14px solid #d19b3d;
     background-color: #2e353d;
     padding: 30px;
     width: 500px;

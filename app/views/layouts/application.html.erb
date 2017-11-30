@@ -4,6 +4,17 @@
     <title>Filmo</title>
     <%= csrf_meta_tags %>
 
+    <script type="text/javascript">
+
+        function cambiafondo()
+        {
+            var imagenes = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg'];
+            var a = document.getElementsByClassName("login-body");
+            a[0].style.backgroundImage='url(/assets/'+ imagenes[Math.floor(Math.random() * imagenes.length)] +')';
+        }
+        setInterval(function(){ cambiafondo(); }, 6000);
+    </script>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
