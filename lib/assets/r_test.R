@@ -16,6 +16,7 @@ for (i in 1:ncol(ratings2)){
 ratings2 = ratings2[,-1]
 #head(ratings2, 670)
 correlation<-cor(ratings2)
+correlation <- abs(correlation)
 
 x<-correlation[user_id,]
 newdata <- head(sort(x, decreasing=TRUE), 11)
@@ -49,4 +50,4 @@ for (i in 1:10){
   result[i,] <- newdata2
 }
 result
-rec_ids = result[,1]
+rec_ids = result[1,]
