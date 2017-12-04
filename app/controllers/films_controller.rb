@@ -3,9 +3,15 @@ class FilmsController < ApplicationController
   before_action :set_film, only: [:show, :edit, :update, :destroy]
 
   def index
+    @q = Film.ransack(params[:q])
     rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
-    @films = Film.where(id: rated_films)
+    if params[:q].blank?
+      @films = Film.where(id: rated_films)
+    else
+      @films = @q.result
+    end
   end
+
 
   def show; end
 
@@ -54,6 +60,7 @@ class FilmsController < ApplicationController
     R.user_id = current_user.id
     R.eval(`cat #{r_script}`)
     recommended_films_ids = R.rec_ids
+    R.quit
     ap recommended_films_ids
     @films = Film.where(id: recommended_films_ids)
   end

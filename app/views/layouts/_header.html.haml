@@ -7,10 +7,11 @@
         =link_to('My films', films_path, class: 'nav-link')
       %li.nav-item
         =link_to('Recommendations', recommend_film_path, class: 'nav-link')
-    %form.form-inline.my-2.my-lg-0
-      %input.form-control.mr-sm-2{placeholder: 'Search', type: 'search'}
-      %button.btn.btn-outline-success.my-2.my-sm-0{type: 'submit'}= icon('search')
-      = link_to('Log out', destroy_user_session_path, method: :delete, class: 'btn btn-secondary')
+        = search_form_for @q, class:'form-inline my-2 my-lg-0' do |f|
+          = f.search_field :title_cont, class: 'form-control mr-sm-2', placeholder: 'Search', type: 'search'
+          = f.submit class: 'btn btn-outline-success my-2 my-sm-0' do
+            = icon('search')
+      = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
 
 .header
   .text-center= page
