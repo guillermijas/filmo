@@ -7,7 +7,10 @@ class FilmsController < ApplicationController
     @films = Film.where(id: rated_films)
   end
 
-  def show; end
+  def show
+    film_search_id = @film.imdb_id
+    @info = HTTParty.get("http://www.omdbapi.com/?i=tt0#{film_search_id}&apikey=6aca691")
+  end
 
   def new
     @film = Film.new

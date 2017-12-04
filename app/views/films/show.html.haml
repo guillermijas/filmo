@@ -1,6 +1,33 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_film_path(@film)
-\|
-= link_to 'Back', films_path
+= render partial: 'layouts/header', locals: {page: @film.title}
+.container.informacion.row
+  .col-md-4
+    %img{:height => "450px", src:@info['Poster']  , :width => "auto"}
+  .col-md-8
+    %h1.infoTitulo=@info['Title']
+    .row
+      .col-md-4.info
+        %div
+          %strong Título original
+        %div=@info['Title']
+      .col-md-4.info
+        %div
+          %strong Director
+        %div=@info['Director']
+      .col-md-4.info
+        %div
+          %strong Año
+        %div=@info['Year']
+      .col-md-4.info
+        %div
+          %strong Duración
+        %div=@info['Runtime']
+      .col-md-4.info
+        %div
+          %strong Géneros
+        %div=@info['Genre']
+      .col-md-12
+        %div
+          %strong Descripción
+        %div=@info['Plot']
+  / Fin ontenido
+= render partial: 'layouts/footer'
