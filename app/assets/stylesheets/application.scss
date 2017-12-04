@@ -18,3 +18,31 @@ html{
   align-items: center;
   justify-content: center;
 }
+
+.header{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: white;
+  text-align: center;
+  margin-top: 0;
+  font-size: 3em;
+  background: url("catalogo.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.footer {
+  background: #EDEFF1;
+  height: 40px;
+  padding: 40px;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  border-top: 1px solid #DDDDDD;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.poster{
+  width: 100%;
+}
