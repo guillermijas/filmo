@@ -3,15 +3,22 @@
 = link_to 'Recommend film', recommend_film_path, class: 'btn btn-primary', method: :post
 = link_to(destroy_user_session_path, method: :delete, class: 'btn btn-secondary') do
   Log Out
-%table
+%table.table.table-bordered
   %thead
     %tr
+      %th
+      %th
+      %th
       %th
 
   %tbody
     - @films.each do |film|
+      - rating = Rating.where(film_id: film.id, user_id: current_user.id)
       %tr
+        %td= film.id
         %td= film.title
+        %td= film.genres
+        %td= rating.first.rating_value
 
 %br
 
