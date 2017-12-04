@@ -3,18 +3,20 @@ f%h1 Recommended Films
 = link_to 'Recommend another film', recommend_film_path, class: 'btn btn-primary', method: :post
 = link_to(destroy_user_session_path, method: :delete, class: 'btn btn-secondary') do
   Log Out
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-      %th
 
-  %tbody
-    - @films.each do |film|
-      %tr
-        %td= film.title
+.row
+  - @films.each do |film|
+    - film_search_id = film.imdb_id.to_s
+    - if film_search_id.size == 5
+      - film_search_id = 'tt00'+film_search_id
+    -else
+      - film_search_id = 'tt0'+film_search_id
+    - info = HTTParty.get("http://www.omdbapi.com/?i=#{film_search_id}&apikey=6aca691")
+    .col-md-4
+      = film.title
+      = film.imdb_id
+      = info.inspect
+      %img{src: "#{info['Poster']}"}
 %br
 
 = link_to 'New Film', new_film_path
