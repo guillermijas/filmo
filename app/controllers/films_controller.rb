@@ -1,77 +1,72 @@
+# frozen_string_literal: true
+
 class FilmsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_film, only: [:show, :edit, :update, :destroy]
+  before_action :set_ransack
 
   def index
     @q = Film.ransack(params[:q])
-    rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
     if params[:q].blank?
+      rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
       @films = Film.where(id: rated_films)
     else
       @films = @q.result
     end
   end
 
-
-  def show; end
-
-  def new
-    @film = Film.new
+  def show
+    @film = Film.find(params[:id])
   end
 
-  def edit; end
-
-  def create
-    @film = Film.new(film_params)
-
-    respond_to do |format|
-      if @film.save
-        format.html { redirect_to @film, notice: 'Film was successfully created.' }
-        format.json { render :show, status: :created, location: @film }
-      else
-        format.html { render :new }
-        format.json { render json: @film.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @film.update(film_params)
-        format.html { redirect_to @film, notice: 'Film was successfully updated.' }
-        format.json { render :show, status: :ok, location: @film }
-      else
-        format.html { render :edit }
-        format.json { render json: @film.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @film.destroy
-    respond_to do |format|
-      format.html { redirect_to films_url, notice: 'Film was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  def top
+    @films = if params[:genre] == 'All'
+               Film.joins(:ratings)
+                   .order('avg(ratings.rating_value) desc')
+                   .group('ratings.film_id')
+                   .having('COUNT(ratings.rating_value) > 30')
+                   .limit(20)
+             elsif %w[Action Adventure Animation Children Comedy Crime Documentary
+                      Drama Fantasy Film-Noir Horror Musical Mystery Romance Sci-Fi
+                      Thriller War Western].include?(params[:genre])
+               genre = "%#{params[:genre]}%"
+               Film.joins(:ratings)
+                   .where('films.genres like ?', genre)
+                   .order('avg(ratings.rating_value) desc')
+                   .group('ratings.film_id')
+                   .having('COUNT(ratings.rating_value) > 30')
+                   .limit(20)
+             end
+    ap @films
   end
 
   def recommend_film
-    r_script = Rails.root.join('lib', 'assets', 'r_test.R')
-    R.user_id = current_user.id
-    R.eval(`cat #{r_script}`)
-    recommended_films_ids = R.rec_ids
-    R.quit
-    ap recommended_films_ids
-    @films = Film.where(id: recommended_films_ids)
+    five_ratings = Rating.where(user_id: current_user.id).count >= 5
+    has_cluster = Cluster.find_by(user_id: current_user.id).present?
+    if five_ratings
+      if has_cluster
+        r_script = Rails.root.join('lib', 'assets', 'recommendation_cluster.R')
+        cluster = Cluster.find_by(user_id: current_user.id)
+        R.userId = current_user.id
+        R.cluster = cluster.cluster
+        R.eval(`cat #{r_script}`)
+        film_ids = R.result
+        ap film_ids
+        @films = Film.where(id: film_ids)
+      else
+        respond_to do |f|
+          f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
+        end
+      end
+    else
+      respond_to do |f|
+        f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
+      end
+    end
   end
 
   private
 
-  def set_film
-    @film = Film.find(params[:id])
-  end
-
-  def film_params
-    params.fetch(:film, {})
+  def set_ransack
+    @q = Film.ransack(params[:q])
   end
 end
