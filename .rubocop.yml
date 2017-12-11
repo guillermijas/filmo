@@ -1,0 +1,16 @@
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'db/schema.rb'
+    - 'config/routes.rb'
+  TargetRubyVersion: 2.4.2
+  DisplayCopNames: true
+
+Documentation:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Enabled: false

@@ -14,7 +14,6 @@ for (i in 1:ncol(ratings2)){
 }
 
 ratings2 = ratings2[,-1]
-#head(ratings2, 670)
 correlation<-cor(ratings2)
 correlation <- abs(correlation)
 
@@ -24,14 +23,11 @@ newdata <- newdata[-1]
 newdata <- as.data.frame(newdata)
 
 
-#Buscar peliculas que tienen los correlacionados y no el target
 films <- ratings2
 for (i in 1:ncol(films)){
   films[which(films[,i] != 0),i] <- 1
 }
-#films <- as.matrix(sapply(films, as.numeric))
-#films <- t(films)
-#films <- as.data.frame(films)
+
 
 newdata3 <- matrix(0,10,9067) #empty matrix
 for (i in 1:10){

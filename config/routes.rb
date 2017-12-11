@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :films
   resources :ratings
   get 'recommend_film', to: 'films#recommend_film', as: 'recommend_film'
+  get 'top', to: 'films#top', as: 'top'
 
   root 'films#index'
 end
