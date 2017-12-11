@@ -9,6 +9,8 @@
         %li.nav-item
           =link_to('Recommendations', recommend_film_path, class: 'nav-link')
         %li.nav-item
+          = link_to('Tops', top_path, class: 'nav-link')
+        %li.nav-item
           = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
 
 .header
