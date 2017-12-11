@@ -1,5 +1,15 @@
 .login-body
   .login-container
+    :javascript
+      function cambiafondo()
+        {
+          console.log("cambia fondo");
+          var imagenes = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg','img5.jpg','img6.jpg','img7.jpg'];
+          var a = document.getElementsByClassName("login-body");
+          a[0].style.backgroundImage='url(/assets/'+ imagenes[Math.floor(Math.random() * imagenes.length)] +')';
+        }
+      setInterval(function(){ cambiafondo(); }, 6000);
+
     = render 'layouts/alerts'
     %h1.text-center Log in
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

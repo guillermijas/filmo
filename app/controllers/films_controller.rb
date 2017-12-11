@@ -13,7 +13,10 @@ class FilmsController < ApplicationController
   end
 
 
-  def show; end
+  def show;
+    film_search_id = @film.imdb_id
+    @info = HTTParty.get("http://www.omdbapi.com/?i=tt0#{film_search_id}&apikey=6aca691")
+  end
 
   def new
     @film = Film.new
@@ -56,13 +59,7 @@ class FilmsController < ApplicationController
   end
 
   def recommend_film
-    r_script = Rails.root.join('lib', 'assets', 'r_test.R')
-    R.user_id = current_user.id
-    R.eval(`cat #{r_script}`)
-    recommended_films_ids = R.rec_ids
-    R.quit
-    ap recommended_films_ids
-    @films = Film.where(id: recommended_films_ids)
+    @films = Film.first(5)
   end
 
   private
