@@ -53,28 +53,29 @@ class FilmsController < ApplicationController
   end
 
   def recommend_film
-    five_ratings = Rating.where(user_id: current_user.id).count >= 5
-    has_cluster = Cluster.find_by(user_id: current_user.id).present?
-    if five_ratings
-      if has_cluster
-        r_script = Rails.root.join('lib', 'assets', 'recommendation_cluster.R')
-        cluster = Cluster.find_by(user_id: current_user.id)
-        R.userId = current_user.id
-        R.cluster = cluster.cluster
-        R.eval(`cat #{r_script}`)
-        film_ids = R.result
-        ap film_ids
-        @films = Film.where(id: film_ids)
-      else
-        respond_to do |f|
-          f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
-        end
-      end
-    else
-      respond_to do |f|
-        f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
-      end
-    end
+    # five_ratings = Rating.where(user_id: current_user.id).count >= 5
+    # has_cluster = Cluster.find_by(user_id: current_user.id).present?
+    # if five_ratings
+    #   if has_cluster
+    #     r_script = Rails.root.join('lib', 'assets', 'recommendation_cluster.R')
+    #     cluster = Cluster.find_by(user_id: current_user.id)
+    #     R.userId = current_user.id
+    #     R.cluster = cluster.cluster
+    #     R.eval(`cat #{r_script}`)
+    #     film_ids = R.result
+    #     ap film_ids
+    #     @films = Film.where(id: film_ids)
+    #   else
+    #     respond_to do |f|
+    #       f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
+    #     end
+    #   end
+    # else
+    #   respond_to do |f|
+    #     f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
+    #   end
+    # end
+    @films = Film.first(5)
   end
 
   private

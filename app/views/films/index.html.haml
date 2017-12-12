@@ -2,11 +2,14 @@
 = render partial: 'layouts/alerts'
 
 .container
-  .searchRight
-    = search_form_for @q, class:'search-query' do |f|
-      = f.search_field :title_cont, class: '', placeholder: 'Search', type: 'search'
-      = f.submit class: 'btn btn-outline-success my-2 my-sm-0' do
-        = icon('search')
+  .row
+    .col-md-8
+    .col-md-4
+      .searchRight
+        = search_form_for @q, class:'search-query form-inline' do |f|
+          = f.search_field :title_cont, class: 'form-control ', placeholder: 'Search', type: 'search'
+          = f.submit class: 'btn btn-outline-success my-2 my-sm-0' do
+            = icon('search')
 
   .row
     - @films.first(5).each do |film|
