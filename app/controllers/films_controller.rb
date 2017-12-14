@@ -16,6 +16,19 @@ class FilmsController < ApplicationController
 
   def show
     @film = Film.find(params[:id])
+    film_search_id = @film.imdb_id.to_s
+    if film_search_id.size == 5
+      film_search_id = 'tt00'+film_search_id
+    elsif film_search_id.size == 6
+      film_search_id = 'tt0'+film_search_id
+    else
+      film_search_id = 'tt'+film_search_id
+    end
+    @info = HTTParty.get("http://www.omdbapi.com/?i=#{film_search_id}&apikey=6aca691")
+  end
+
+  def new
+    @film = Film.new
   end
 
   def top

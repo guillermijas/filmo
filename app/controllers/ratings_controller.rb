@@ -19,12 +19,13 @@ class RatingsController < ApplicationController
   end
 
   def create
-    redirect_to films_path
+    Rating.create!(user_id: current_user.id, film_id: params[:rating][:film_id], rating_value: params[:rating][:rating_value])
+    redirect_to request.referrer
   end
 
   def update
     respond_to do |format|
-      if @rating.update(film_params)
+      if @rating.update(rating_params)
         format.html { redirect_to films_path, notice: 'Rating updated.' }
       else
         format.html { redirect_to films_path, alert: 'Invalid rating value' }
@@ -42,7 +43,7 @@ class RatingsController < ApplicationController
     @rating = Rating.find(params[:id])
   end
 
-  def film_params
+  def rating_params
     params.require(:rating).permit(:rating_value)
   end
 end

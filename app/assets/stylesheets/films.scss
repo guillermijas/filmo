@@ -1,3 +1,254 @@
 // Place all the styles related to the films controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.searchRight{
+  margin-top: 20px;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.full {
+  width: 100%;
+}
+.gap {
+  height: 30px;
+  width: 100%;
+  clear: both;
+  display: block;
+}
+.footer {
+  background: #EDEFF1;
+  height: auto;
+  margin-top: 30px;
+  padding-bottom: 22px;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  border-top: 1px solid #DDDDDD;
+}
+.footer p {
+  margin: 0;
+}
+.footer img {
+  max-width: 100%;
+}
+
+.footer ul {
+  font-size: 13px;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 15px;
+  color: #7F8C8D;
+}
+.footer ul li a {
+  padding: 0 0 5px 0;
+  display: block;
+}
+.footer a {
+  color: #78828D
+}
+.supportLi h4 {
+  font-size: 20px;
+  font-weight: lighter;
+  line-height: normal;
+  margin-bottom: 0 !important;
+  padding-bottom: 0;
+}
+
+.newsletter-box .btn {
+  border: medium none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  display: inline-block;
+  height: 40px;
+  padding: 0;
+  width: 100%;
+  color: #fff;
+}
+.newsletter-box {
+  overflow: hidden;
+}
+.bg-gray {
+  background-image: -moz-linear-gradient(center bottom, #BBBBBB 0%, #F0F0F0 100%);
+  box-shadow: 0 1px 0 #B4B3B3;
+}
+.social li {
+  background: none repeat scroll 0 0 #B5B5B5;
+  border: 2px solid #B5B5B5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  margin: 0 8px 0 0;
+  padding: 0;
+  text-align: center;
+  width: 36px;
+  transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+}
+.social li:hover {
+  transform: scale(1.15) rotate(360deg);
+  -webkit-transform: scale(1.1) rotate(360deg);
+  -moz-transform: scale(1.1) rotate(360deg);
+  -ms-transform: scale(1.1) rotate(360deg);
+  -o-transform: scale(1.1) rotate(360deg);
+}
+.social li a {
+  color: #EDEFF1;
+}
+.social li:hover {
+  border: 2px solid #2c3e50;
+  background: #2c3e50;
+}
+.social li a i {
+  font-size: 20px;
+  margin: 0 0 0 5px;
+  padding-top: 6px;
+  color: #EDEFF1 !important;
+}
+.footer-bottom {
+  background: #E3E3E3;
+  border-top: 1px solid #DDDDDD;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.titulo-header{
+  padding-top: 50px;
+  padding-bottom:50px;
+  color: white;
+  text-align: center;
+  margin-top: 0px;
+  font-size: 3em
+}
+.navbar.navbar-default{
+  margin-bottom: 0px;
+}
+
+.portada-peliculas{
+  height: 300px;
+  width: auto;
+}
+
+.div-portada{
+  margin-bottom: 40px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#logo-navbar{
+  margin-bottom: 5px;
+}
+
+.mapa-sitio{
+  padding-top: 12px;
+  float: left;
+  margin-right: 30px;
+  font-size: 17px;
+  color: #54697E;
+  font-weight: 600;
+
+
+  text-transform: uppercase;
+}
+
+.boton-recomendar{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.btn-circle {
+  width: 170px;
+  height: 50px;
+  text-align: center;
+  padding: 7px 0;
+  font-size: 17px;
+  line-height: 1.428571429;
+  border-radius: 50px;
+}
+
+.col-md-4.info{
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.container.informacion{
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+
+.search-query {
+  padding-right: 3px;
+  padding-right: 4px \9;
+  padding-left: 3px;
+  padding-left: 4px \9;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: width  0.2s ease-in-out;
+  -moz-transition:width  0.2s ease-in-out;
+  -o-transition: width  0.2s ease-in-out;
+  transition: width  0.2s ease-in-out;
+  border: 0;
+}
+
+.card{
+  border: 0px;
+}
+.card-title{
+  text-align: center;
+}
+
+.informacion.row{
+  margin-top: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 50px;
+}
+
+.info{
+  margin-bottom: 20px;
+}
+
+.infoTitulo{
+  margin-bottom: 30px;
+}
+
+.checked {
+  color: orange;
+}
+
+.star{
+  margin-right: 3px;
+  font-size: 25px;
+}
+
+.buttonedit{
+  background: transparent;
+  border: 0px;
+  font-size: 25px;
+}
+
+.buttoncancel{
+  background: transparent;
+  border: 0px;
+  font-size: 25px;
+  color:red;
+}
+
+

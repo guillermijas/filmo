@@ -5,12 +5,12 @@ $gray: #dddddd;
 }
 
 .login-body {
-  background-size: cover;
-  background: image_url('background.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-size: 100%;
+  background: image_url('background_login.jpg') no-repeat center center fixed;
+  -moz-background: image_url('background_login.jpg') no-repeat center center fixed;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
   color: white;
   overflow-x: hidden;
   padding: 40px;
@@ -21,8 +21,10 @@ $gray: #dddddd;
   align-items: center;
   justify-content: center;
 
+
+
   .login-container {
-    border-top: 14px solid #d19b3d;
+    //border-top: 14px solid #d19b3d;
     background-color: #2e353d;
     padding: 30px;
     width: 500px;
@@ -63,3 +65,4 @@ $gray: #dddddd;
     width: 100%;
   }
 }
+
