@@ -12,7 +12,7 @@
             = icon('search')
 
   .row
-    - @films.first(5).each do |film|
+    - @films.first(5).each.with_index do |film,index|
       - rating = Rating.where(film_id: film.id, user_id: current_user.id).first || Rating.new
       - film_search_id = film.imdb_id.to_s
       - if film_search_id.size == 5
@@ -40,13 +40,14 @@
                 - while contador1 <= limite1
                   %span.fa.fa-star-o.star
                   - contador1 += 1;
-                %button.fa.fa-edit.buttonedit
-                %button.fa.fa-times.buttoncancel
-              %p.card-text
-                .hidee
-                  = simple_form_for rating do |f|
-                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
-                    = f.submit :class=>'fa fa-times'
+                %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
+                %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
+
+              .hidee{:class=>"cancelar#{index}"}
+                = simple_form_for rating do |f|
+                  = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
+                  %button.fa.fa-refresh.btn-success.form-control
+
             - else
               .card-title
                 - contador3 = 1;
@@ -54,35 +55,30 @@
                   %span.fa.fa-star-o.star
                   - contador3 += 1;
 
-                %button.fa.fa-edit.buttonedit
-                %button.fa.fa-times.buttoncancel
-              %p.card-text
-                .hidee
-                  = simple_form_for rating do |f|
-                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
-                    = f.hidden_field :film_id, value: film.id
-                    = f.submit :class=>'fa fa-times'
+                %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
+                %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
+
+              .hidee{:class=>"cancelar#{index}"}
+                = simple_form_for rating do |f|
+                  = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
+                  = f.hidden_field :film_id, value: film.id
+                  %button.fa.fa-refresh.btn-success.form-control
 :javascript
-  $(document).ready(function(){
-    $(".hidee").hide();
-    $(".buttoncancel").hide();
+  $(".simple_form.edit_rating").addClass("form-inline");
+  $(".simple_form.new_rating").addClass("form-inline");
+  $(".buttoncancel").hide();
+  $(".hidee").hide();
+  $(".buttonedit").show();
 
+  function editar(i) {
+    $(".editar"+i).hide();
+    $(".cancelar"+i).show();
+  }
 
-    $(".buttonedit").click(function(){
-      $(".hidee").show();
-      $(".buttonedit").hide();
-      $(".buttoncancel").show();
-    });
-    $(".buttoncancel").click(function(){
-      $(".hidee").hide();
-      $(".buttonedit").show();
-      $(".buttoncancel").hide();
-    });
-  });
-
-
-
-
+  function cancelar(i){
+    $(".cancelar"+i).hide();
+    $(".editar"+i).show();
+  }
 
 
 = render partial: 'layouts/footer'
