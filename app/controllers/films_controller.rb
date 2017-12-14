@@ -50,12 +50,13 @@ class FilmsController < ApplicationController
         R.cluster = cluster.cluster
         R.eval(`cat #{r_script}`)
         film_ids = R.result
-        ap film_ids
         @films = Film.where(id: film_ids)
       else
-        respond_to do |f|
-          f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
-        end
+        r_script = Rails.root.join('lib', 'assets', 'recommendation_tree.R')
+        R.userId = current_user.id
+        R.eval(`cat #{r_script}`)
+        film_ids = R.result
+        @films = Film.where(id: film_ids)
       end
     else
       respond_to do |f|
