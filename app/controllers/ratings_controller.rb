@@ -26,9 +26,9 @@ class RatingsController < ApplicationController
   def update
     respond_to do |format|
       if @rating.update(rating_params)
-        format.html { redirect_to films_path, notice: 'Rating updated.' }
+        format.html { redirect_to request.referrer, notice: 'Rating updated.' }
       else
-        format.html { redirect_to films_path, alert: 'Invalid rating value' }
+        format.html { redirect_to request.referrer, alert: 'Invalid rating value' }
       end
     end
   end

@@ -8,27 +8,31 @@
       .row
         .col-md-4.info
           %div
-            %strong Título original
-          %div=@info['Title']
-        .col-md-4.info
-          %div
             %strong Director
           %div=@info['Director']
         .col-md-4.info
           %div
-            %strong Año
+            %strong Year
           %div=@info['Year']
         .col-md-4.info
           %div
-            %strong Duración
+            %strong Actors
+          %div=@info['Actors']
+        .col-md-4.info
+          %div
+            %strong Year
+          %div=@info['Year']
+        .col-md-4.info
+          %div
+            %strong Duration
           %div=@info['Runtime']
         .col-md-4.info
           %div
-            %strong Géneros
+            %strong Genres
           %div=@info['Genre']
-        .col-md-12
+        .col-md-12.info
           %div
-            %strong Descripción
+            %strong Plot
           %div=@info['Plot']
   / Fin ontenido
 = render partial: 'layouts/footer'
