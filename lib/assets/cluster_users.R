@@ -2,6 +2,7 @@ library("data.table")
 library("reshape2")
 library("RSQLite")
 library("RWeka")
+library("rJava")
 
 setwd("~/filmo/db")
 sqlite <- dbDriver("SQLite")
@@ -24,5 +25,7 @@ t<-lapply(cluster_users, as.factor)
 ratings2<-cbind(t, ratings2)
 cluster_users<-cluster_users[,1]
 
-model <- J48(clusterId~., data = ratings2)
-saveRDS(model, "model.rds")
+j48.model <- J48(clusterId~., data = ratings2)
+
+.jcache(j48.model$classifier)
+save(j48.model, file="j48.model.rda")

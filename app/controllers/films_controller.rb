@@ -47,33 +47,42 @@ class FilmsController < ApplicationController
                    .order('avg(ratings.rating_value) desc')
                    .group('ratings.film_id')
                    .having('COUNT(ratings.rating_value) > 30')
-                   .limit(20)
+                   .limit(5)
              end
     ap @films
   end
 
   def recommend_film
-    five_ratings = Rating.where(user_id: current_user.id).count >= 5
+    rated_films = Rating.where(user_id: current_user.id)
+    five_ratings = rated_films.count >= 5
     has_cluster = Cluster.find_by(user_id: current_user.id).present?
     if five_ratings
       if has_cluster
-        r_script = Rails.root.join('lib', 'assets', 'recommendation_cluster.R')
         cluster = Cluster.find_by(user_id: current_user.id)
-        R.userId = current_user.id
-        R.cluster = cluster.cluster
-        R.eval(`cat #{r_script}`)
-        film_ids = R.result
-        @films = Film.where(id: film_ids)
+        ap cluster
+        cluster_users = Cluster.where(cluster: cluster.cluster).pluck(:user_id)
+        cluster_films = Rating.where(user: cluster_users).order(:rating_value)
+        recommended_films = Film.where(id: cluster_films)
+        recommended_films = recommended_films - Rating.where(user_id: current_user.id).pluck(:film_id)
+        rec_by_rating = Rating.where(film_id: recommended_films).order(:rating_value).pluck(:film_id)
+        @films = Film.where(id: rec_by_rating).first(12)
       else
         r_script = Rails.root.join('lib', 'assets', 'recommendation_tree.R')
         R.userId = current_user.id
         R.eval(`cat #{r_script}`)
-        film_ids = R.result
-        @films = Film.where(id: film_ids)
+        cluster = R.cluster_id
+        cluster = cluster.to_i
+        ap cluster
+        cluster_users = Cluster.where(cluster: cluster).pluck(:user_id)
+        cluster_films = Rating.where(user: cluster_users).order(:rating_value)
+        recommended_films = Film.where(id: cluster_films)
+        recommended_films = recommended_films - Rating.where(user_id: current_user.id).pluck(:film_id)
+        rec_by_rating = Rating.where(film_id: recommended_films).order(:rating_value).pluck(:film_id)
+        @films = Film.where(id: rec_by_rating).first(12)
       end
     else
       respond_to do |f|
-        f.html { redirect_to :index, alert: 'You must rate at least 5 films' }
+        f.html { redirect_to films_path, alert: 'You must rate at least 5 films' }
       end
     end
   end

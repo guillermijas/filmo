@@ -13,11 +13,11 @@ ratings2 <- dcast(ratings, film_id~user_id, value.var = "rating_value", na.rm=FA
 sqlcmd <- paste("select user_id from clusters where cluster = ", cluster, sep="")
 cluster_users <- dbGetQuery(con, sqlcmd)
 
-
 for (i in 1:ncol(ratings2)){
     ratings2[which(is.na(ratings2[,i]) == TRUE),i] <- 0
 }
 
+filmID <- ratings2[,1]
 ratings2 <- ratings2[,-1]
 
 cluster_users<-cluster_users[-which(cluster_users == userId)] #si el usaurio objetivo se repite ne la lista anterior, ejecutar esto
@@ -27,10 +27,15 @@ newdata <- as.data.frame(cluster_users)
 films <- ratings2
 for (i in 1:ncol(films)){
     films[which(films[,i] != 0),i] <- 1
-    if (films[userId,i] == 1){
+
+    if (films[userId,i] == 1)
+    {
         films[,i] <- 0
     }
 }
+#films <- as.matrix(sapply(films, as.numeric))
+#films <- t(films)
+#films <- as.data.frame(films)
 
 newdata3 <- matrix(0,10,9067) #empty matrix
 for (i in 1:10){
@@ -49,4 +54,11 @@ for (i in 1:10){
     result[i,] <- newdata2
 }
 
-result <- result[,1]
+for (i in 1:10){
+    for (j in 1:5){
+        result[i,j] <- filmID[result[i,j]]
+    }
+}
+cluster
+result
+result <- unique(c(result[1:3,1], result[1:3,2], result[1:3,3], result[1:3,4]))
