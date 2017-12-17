@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :import_csv do
   task import_ratings: :environment do
     CSV.foreach('lib/assets/ratings.csv', headers: true, row_sep: :auto, col_sep: ',') do |row|

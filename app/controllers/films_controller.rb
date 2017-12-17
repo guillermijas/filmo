@@ -5,10 +5,13 @@ class FilmsController < ApplicationController
   before_action :set_ransack
 
   def index
-    if current_user.nil?
-      @films = []
+    if current_user.blank?
+      @films = if params[:q].blank?
+                 []
+               else
+                 @q.result
+               end
     else
-      @q = Film.ransack(params[:q])
       if params[:q].blank?
         rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
         @films = Film.where(id: rated_films)
@@ -41,7 +44,6 @@ class FilmsController < ApplicationController
                    .having('COUNT(ratings.rating_value) > 30')
                    .limit(5)
              end
-    ap @films
   end
 
   def recommend_film

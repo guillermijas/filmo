@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Film < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :tags, dependent: :destroy
@@ -15,7 +17,7 @@ class Film < ApplicationRecord
                             .having('AVG(ratings.rating_value) >= 4')
                             .pluck(:film_id)
     not_seen_films = all_cluster_films - Rating.where(user_id: user_id).pluck(:film_id)
-    recommended = not_seen_films.shuffle.first(12)
+    recommended = not_seen_films.sample(12)
     Film.where(id: recommended)
   end
 

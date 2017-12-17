@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilmsControllerTest < ActionDispatch::IntegrationTest
@@ -5,40 +7,40 @@ class FilmsControllerTest < ActionDispatch::IntegrationTest
     @film = films(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get films_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_film_url
     assert_response :success
   end
 
-  test "should create film" do
+  test 'should create film' do
     assert_difference('Film.count') do
-      post films_url, params: { film: {  } }
+      post films_url, params: { film: {} }
     end
 
     assert_redirected_to film_url(Film.last)
   end
 
-  test "should show film" do
+  test 'should show film' do
     get film_url(@film)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_film_url(@film)
     assert_response :success
   end
 
-  test "should update film" do
-    patch film_url(@film), params: { film: {  } }
+  test 'should update film' do
+    patch film_url(@film), params: { film: {} }
     assert_redirected_to film_url(@film)
   end
 
-  test "should destroy film" do
+  test 'should destroy film' do
     assert_difference('Film.count', -1) do
       delete film_url(@film)
     end
