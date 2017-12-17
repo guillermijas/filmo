@@ -27,10 +27,6 @@ class FilmsController < ApplicationController
     @info = HTTParty.get("http://www.omdbapi.com/?i=#{film_search_id}&apikey=6aca691")
   end
 
-  def new
-    @film = Film.new
-  end
-
   def top
     @films = if params[:genre] == 'All'
                Film.joins(:ratings)
@@ -58,27 +54,13 @@ class FilmsController < ApplicationController
     has_cluster = Cluster.find_by(user_id: current_user.id).present?
     if five_ratings
       if has_cluster
-        cluster = Cluster.find_by(user_id: current_user.id)
-        ap cluster
-        cluster_users = Cluster.where(cluster: cluster.cluster).pluck(:user_id)
-        cluster_films = Rating.where(user: cluster_users).order(:rating_value)
-        recommended_films = Film.where(id: cluster_films)
-        recommended_films = recommended_films - Rating.where(user_id: current_user.id).pluck(:film_id)
-        rec_by_rating = Rating.where(film_id: recommended_films).order(:rating_value).pluck(:film_id)
-        @films = Film.where(id: rec_by_rating).first(12)
+        @films = Film.recommended_films(current_user.id)
       else
         r_script = Rails.root.join('lib', 'assets', 'recommendation_tree.R')
         R.userId = current_user.id
         R.eval(`cat #{r_script}`)
         cluster = R.cluster_id
-        cluster = cluster.to_i
-        ap cluster
-        cluster_users = Cluster.where(cluster: cluster).pluck(:user_id)
-        cluster_films = Rating.where(user: cluster_users).order(:rating_value)
-        recommended_films = Film.where(id: cluster_films)
-        recommended_films = recommended_films - Rating.where(user_id: current_user.id).pluck(:film_id)
-        rec_by_rating = Rating.where(film_id: recommended_films).order(:rating_value).pluck(:film_id)
-        @films = Film.where(id: rec_by_rating).first(12)
+        @films = Film.recommended_films(current_user.id)
       end
     else
       respond_to do |f|

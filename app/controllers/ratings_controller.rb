@@ -1,22 +1,6 @@
 class RatingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_rating, only: [:show, :edit, :update, :destroy]
-
-  def index
-    redirect_to films_path
-  end
-
-  def show
-    redirect_to films_path
-  end
-
-  def new
-    redirect_to films_path
-  end
-
-  def edit
-    redirect_to films_path
-  end
+  before_action :set_rating, only: :update
 
   def create
     Rating.create!(user_id: current_user.id, film_id: params[:rating][:film_id], rating_value: params[:rating][:rating_value])
@@ -31,10 +15,6 @@ class RatingsController < ApplicationController
         format.html { redirect_to request.referrer, alert: 'Invalid rating value' }
       end
     end
-  end
-
-  def destroy
-    redirect_to films_path
   end
 
   private

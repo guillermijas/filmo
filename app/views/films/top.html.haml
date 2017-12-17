@@ -34,14 +34,7 @@
     .row
       - @films.each.with_index do |film,index|
         - rating = Rating.where(film_id: film.id, user_id: current_user.id).first || Rating.new
-        - film_search_id = film.imdb_id.to_s
-        - if film_search_id.size == 5
-          - film_search_id = 'tt00'+film_search_id
-        -elsif film_search_id.size == 6
-          - film_search_id = 'tt0'+film_search_id
-        -else
-          - film_search_id = 'tt'+film_search_id
-        - info = HTTParty.get("http://www.omdbapi.com/?i=#{film_search_id}&apikey=6aca691")
+        - info = HTTParty.get("http://www.omdbapi.com/?i=#{film.real_imdb_id}&apikey=6aca691")
         .col-md-3
           .card{style: 'padding: 30px'}
             =link_to(film_path(film)) do
