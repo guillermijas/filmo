@@ -1,18 +1,22 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container
-    %ul.navbar-nav
-      %li.nav-item
-        =link_to('My films', films_path, class: 'nav-link')
-      %li.nav-item
-        =link_to('Recommendations', recommend_film_path, class: 'nav-link')
-      %li.nav-item
-        = link_to('Tops', top_path, class: 'nav-link')
-    %ul.nav.navbar-nav.navbar-right
-      %li.nav-item
-        - if current_user.present?
-          = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
-        -else  
-          = link_to('Log in', new_user_session_path, class: 'nav-link')
+    %button.navbar-toggler{'data-target'=>'#navbarSupportedContent', 'data-toggle'=>'collapse', type: 'button'}
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          =link_to('My films', films_path, class: 'nav-link')
+        %li.nav-item
+          =link_to('Recommendations', recommend_film_path, class: 'nav-link')
+        %li.nav-item
+          = link_to('Tops', top_path, class: 'nav-link')
+    %span
+      %ul.nav.navbar-nav.navbar-right.mr-auto
+        %li.nav-item
+          - if current_user.present?
+            = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
+          -else
+            = link_to('Log in', new_user_session_path, class: 'nav-link')
 
 .header
   .text-center= page
