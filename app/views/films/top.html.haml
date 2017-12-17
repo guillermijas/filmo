@@ -35,7 +35,7 @@
       - @films.each.with_index do |film,index|
         - rating = Rating.where(film_id: film.id, user_id: current_user.id).first || Rating.new
         - info = HTTParty.get("http://www.omdbapi.com/?i=#{film.real_imdb_id}&apikey=6aca691")
-        .col-md-3
+        .col-lg-3.col-md-4.col-sm-6.col-xs-12
           .card{style: 'padding: 30px'}
             =link_to(film_path(film)) do
               %img.poster{src: info['Poster']}
@@ -55,11 +55,11 @@
                   - while contador1 <= limite1
                     %span.fa.fa-star-o.star
                     - contador1 += 1;
-                  %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
-                  %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
+                %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
+                %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
                 .hidee{:class=>"cancelar#{index}"}
                   = simple_form_for rating do |f|
-                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
+                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control updateRating"
                     %button.fa.fa-refresh.btn-success.form-control
               - else
                 .card-title
@@ -68,11 +68,11 @@
                     %span.fa.fa-star-o.star
                     - contador3 += 1;
 
-                  %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
-                  %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
+                %button.fa.fa-edit.buttonedit{:onclick=>"editar(#{index})", :class=>"editar#{index}"}
+                %button.fa.fa-times.buttoncancel{:onclick=>"cancelar(#{index})", :class=>"cancelar#{index}"}
                 .hidee{:class=>"cancelar#{index}"}
                   = simple_form_for rating do |f|
-                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control"
+                    = f.number_field :rating_value, :step=>0.5, :min=>0.5 , :max=>5, label: false, :class=>"form-control updateRating"
                     = f.hidden_field :film_id, value: film.id
                     %button.fa.fa-refresh.btn-success.form-control
 
