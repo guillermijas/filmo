@@ -33,7 +33,10 @@
   - unless @films.blank?
     .row
       - @films.each.with_index do |film,index|
-        - rating = Rating.where(film_id: film.id, user_id: current_user.id).first || Rating.new
+        - if current_user.present?
+          - rating = Rating.where(film_id: film.id, user_id: current_user.id).first || Rating.new
+        - else
+          - rating = Rating.new
         - info = HTTParty.get("http://www.omdbapi.com/?i=#{film.real_imdb_id}&apikey=6aca691")
         .col-lg-3.col-md-4.col-sm-6.col-xs-12
           .card{style: 'padding: 30px'}

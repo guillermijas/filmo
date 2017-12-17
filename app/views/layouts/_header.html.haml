@@ -9,7 +9,10 @@
         = link_to('Tops', top_path, class: 'nav-link')
     %ul.nav.navbar-nav.navbar-right
       %li.nav-item
-        = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
+        - if current_user.present?
+          = link_to('Log out', destroy_user_session_path, method: :delete, class: 'nav-link')
+        -else  
+          = link_to('Log in', new_user_session_path, class: 'nav-link')
 
 .header
   .text-center= page

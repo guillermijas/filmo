@@ -1,30 +1,26 @@
 # frozen_string_literal: true
 
 class FilmsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:recommend_film]
   before_action :set_ransack
 
   def index
-    @q = Film.ransack(params[:q])
-    if params[:q].blank?
-      rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
-      @films = Film.where(id: rated_films)
+    if current_user.nil?
+      @films = []
     else
-      @films = @q.result
+      @q = Film.ransack(params[:q])
+      if params[:q].blank?
+        rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
+        @films = Film.where(id: rated_films)
+      else
+        @films = @q.result
+      end
     end
   end
 
   def show
     @film = Film.find(params[:id])
-    film_search_id = @film.imdb_id.to_s
-    if film_search_id.size == 5
-      film_search_id = 'tt00'+film_search_id
-    elsif film_search_id.size == 6
-      film_search_id = 'tt0'+film_search_id
-    else
-      film_search_id = 'tt'+film_search_id
-    end
-    @info = HTTParty.get("http://www.omdbapi.com/?i=#{film_search_id}&apikey=6aca691")
+    @info = HTTParty.get("http://www.omdbapi.com/?i=#{@film.real_imdb_id}&apikey=6aca691")
   end
 
   def top
