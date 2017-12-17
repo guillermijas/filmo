@@ -60,7 +60,7 @@ class FilmsController < ApplicationController
         R.userId = current_user.id
         R.eval(`cat #{r_script}`)
         cluster = R.cluster_id
-        @films = Film.recommended_films(current_user.id)
+        @films = Film.recommended_films(current_user.id, cluster)
       end
     else
       respond_to do |f|
