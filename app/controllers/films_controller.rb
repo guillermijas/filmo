@@ -6,13 +6,13 @@ class FilmsController < ApplicationController
 
   def index
     if current_user.blank?
-      @films = if params[:q].blank?
+      @films = if params[:q].blank? || params[:q][:title_cont].blank?
                  []
                else
                  @q.result
                end
     else
-      if params[:q].blank?
+      if params[:q].blank? || params[:q][:title_cont].blank?
         rated_films = Rating.where(user_id: current_user.id).pluck(:film_id)
         @films = Film.where(id: rated_films)
       else
